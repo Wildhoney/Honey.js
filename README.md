@@ -18,9 +18,10 @@ Quick Tutorial
 -------------
 
 * Controllers should contain methods;
+* Controllers define the properties which appear in the template;
 * Controllers should push data to the views (`this.myName = 'Adam';`);
 * Views should store the properties to update the templates;
-* Templates should specify the events it responds to;
+* Templates should specify the events to respond to (`data-click="method"`);
 
 
 Future
