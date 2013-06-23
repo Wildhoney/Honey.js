@@ -1,0 +1,61 @@
+<html>
+<head>
+
+    <title>Honey.js</title>
+
+    <link rel="stylesheet" type="text/css" href="styles/default.css" />
+
+    <script type="text/javascript" src="../node_modules/mustache/mustache.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/default.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/factory.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/collection.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/controller.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/view.js"></script>
+    <script type="text/javascript" src="../packages/honey.js/utils.js"></script>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+</head>
+<body>
+
+    <section data-template-name="application">
+
+        <h1 data-mouseover="showLove">Hey {{yourName}}! Ensconce your mouse here&hellip;</h1>
+
+        {{#displayAffection}}
+            <h3>P.S: We love you, {{yourName}}! <a data-click="hideLove" href="#">Thanks!</a></h3>
+        {{/displayAffection}}
+
+        <section data-template-name="users">
+
+            {{myName}}: We have {{users.length}} animals in store, didn't you know?
+            <input type="button" data-click="setName" value="...But wait! I'm not {{myName}}!" />
+
+            <ul>
+                {{#users}}
+                    <li data-click="pokeSomebody" data-model="{{model}}">{{name}}</li>
+                {{/users}}
+            </ul>
+
+        </section>
+
+        <section data-template-name="playlist">
+
+            <h1>My Loved Artists</h1>
+
+            <a href="javascript:void(0);" data-click="addArtist">Add Artist</a>
+
+            <ul>
+                {{#artists}}
+                    <li>{{name}} &ndash; <a href="javascript:void(0);" data-click="removeArtist" data-model="{{model}}">Remove</a></li>
+                {{/artists}}
+            </ul>
+
+        </section>
+
+        Goodbye.
+
+    </section>
+
+</body>
+</html>

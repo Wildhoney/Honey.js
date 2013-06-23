@@ -1,0 +1,3 @@
+describe('Honey.js', function() {
+
+});
