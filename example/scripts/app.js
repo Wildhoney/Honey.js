@@ -28,7 +28,7 @@ App.UsersController = Honey.Controller.extend({
         this.myName = prompt('Then who are you?');
     },
 
-    pokeSomebody: function(model, event) {
+    pokeSomebody: function(event, model) {
         alert('You poked, ' + model.name + '! How dare you?')
     }
 

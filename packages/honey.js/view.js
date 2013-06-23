@@ -101,7 +101,7 @@ Honey.View = {
                 Honey.assert('You must specify the `' + method + '` event on the `' + controllerName + '`', !!controller[method]);
 
                 // Finally we can invoke it, passing the model and the event to the method.
-                controller[method].apply(controller, [Honey.Collection.modelMapper[model], event]);
+                controller[method].apply(controller, [event, Honey.Collection.modelMapper[model]]);
 
             };
 
