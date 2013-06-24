@@ -11,17 +11,17 @@ Honey.Controller = {
      */
     extend: function(properties) {
 
-        var ControllerClass = function() {
+        var ControllerClass = function ControllerClass() {
 
             var controller  = this;
             this.buffer     = {};
 
-            var propagateChanges = function(value) {
+            var propagateChanges = function propagateChanges(value) {
                 // Pushes the property into the view.
                 controller.propagateChanges.call(controller, this, value);
             };
 
-            var fromView = function() {
+            var retrieveChanges = function retrieveChanges() {
                 // Takes the property from the view.
                 return controller.view[this];
             };
@@ -54,7 +54,7 @@ Honey.Controller = {
                      * @method get
                      * @return {String,Number,Object,Boolean}
                      */
-                    get: fromView.bind(property)
+                    get: retrieveChanges.bind(property)
 
                 });
 
@@ -67,7 +67,7 @@ Honey.Controller = {
             // Special configuration for when the view property on the controller is changed, which means
             // the view has finally been attached.
             Object.defineProperty(this, '_view', {
-                set: function(value) {
+                set: function set(value) {
                     controller.attachedView.call(controller, value);
                 }
             });

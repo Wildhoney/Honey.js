@@ -21,11 +21,11 @@ Honey.Collection = {
 
         var collection = [], models = objects || [];
 
-        collection.add = function(object) {
+        collection.add = function add(object) {
             Honey.Collection.Methods.add.call(controller, object, this);
         };
 
-        collection.remove = function(object) {
+        collection.remove = function remove(object) {
             Honey.Collection.Methods.remove.call(controller, object, this);
         };
 

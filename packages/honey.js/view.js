@@ -19,7 +19,7 @@ Honey.View = {
      */
     extend: function(properties) {
 
-        var ViewClass = function() {
+        var ViewClass = function ViewClass() {
 
             for (var property in properties) {
                 if (properties.hasOwnProperty(property)) {
@@ -109,7 +109,7 @@ Honey.View = {
             var events = ['click', 'dblclick', 'mouseover', 'mouseleave'];
 
             // Iterate over all of the desired events.
-            events.forEach(function(eventName) {
+            events.forEach(function eventDelegate(eventName) {
                 node.addEventListener(eventName, function(event) {
                     delegate(eventName, event);
                 });
@@ -132,7 +132,7 @@ Honey.View = {
 
             // Find the template name, and then its associated SECTION node.
             var templateName    = Honey.Utils.getTemplateName(this.name),
-                node            = document.querySelector('[data-template-name="' + templateName+ '"]');
+                node            = document.querySelector('[data-template-name="' + templateName + '"]');
 
             if (!this.template) {
 
@@ -146,7 +146,7 @@ Honey.View = {
                     if (section) { sections.push(section); }
                 } while (section);
 
-                sections.forEach(function(section) {
+                sections.forEach(function forEach(section) {
                     // Iterate over the nodes we found and replace them with their name.
                     var name = section.getAttribute('data-template-name');
                     section.innerHTML = '{{{' + name + 'Template}}}';

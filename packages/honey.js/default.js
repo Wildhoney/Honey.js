@@ -68,7 +68,7 @@ var Honey = {
 
                 // Discover the template name, then we can find the node, and grab all of its ancestors
                 // using good ol' XPath.
-                var templateName    = Honey.Utils.getTemplateName(name),
+                var templateName    = Honey.Utils.getTemplateName(name).toLowerCase(),
                     node            = document.querySelector('[data-template-name="' + templateName+ '"]'),
                     xpath           = document.evaluate('ancestor::*', node),
                     count           = 0;
@@ -93,7 +93,7 @@ var Honey = {
         };
 
         // Invoke the callback once the DOM has been loaded.
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function domLoaded() {
 
             // Sort the views based on the count of their ancestors.
             var collection = createHierarchy(this);
