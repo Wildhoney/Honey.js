@@ -22,10 +22,14 @@ App.ApplicationController = Honey.Controller.extend({
 App.UsersController = Honey.Controller.extend({
 
     myName: 'Adam',
-    users: [{ name: 'Boris' }, { name: 'Sergei' }, { name: 'Alisa' }],
+    users: [{ name: 'Boris', cuteness: 6 }, { name: 'Sergei', cuteness: 7 }, { name: 'Alisa', cuteness: 11 }],
+
+    filterByCuteness: function() {
+        this.users.filterRange('cuteness', [6, 11]);
+    },
 
     setName: function() {
-        var name = prompt('Then who are you?');
+        var name    = prompt('Then who are you?');
         this.myName = name;
         this.controllers.application.yourName = name;
     },

@@ -172,6 +172,8 @@ Honey.View = {
 
             }
 
+            Honey.assert('You must include `Mustache` to be able to render the views', !!window['Mustache']);
+
             // Render the templates using Mustache, drop it into the hash, and then finally render it to the DOM.
             var rendered    = Mustache.render(this.template, properties);
             Honey.View.templates[templateName + 'Template'] = rendered;

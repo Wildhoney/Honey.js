@@ -35,7 +35,7 @@ Honey.Controller = {
 
                 // We need to make a collection out of arrays.
                 if (Array.isArray(properties[property])) {
-                    properties[property] = Honey.Collection.create(properties[property], controller);
+                    properties[property] = Honey.Collection.create(properties[property], property, controller);
                 }
 
                 // Define the property on the controller so that when it changes, it is propagated

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styles/default.css" />
 
     <script type="text/javascript" src="../node_modules/mustache/mustache.js"></script>
+    <script type="text/javascript" src="../node_modules/crossfilter/crossfilter.js"></script>
     <script type="text/javascript" src="../packages/honey.js/default.js"></script>
     <script type="text/javascript" src="../packages/honey.js/factory.js"></script>
     <script type="text/javascript" src="../packages/honey.js/collection.js"></script>
@@ -31,9 +32,14 @@
             {{myName}}: We have {{users.length}} animals in store, didn't you know?
             <input type="button" data-click="setName" value="...But wait! I'm not {{myName}}!" />
 
+            <div>* Can't find what you're after? <a data-click="filterByCuteness" href="javascript:void(0);">Filter by cuteness</a>.</div>
+
             <ul>
                 {{#users}}
-                    <li><a data-click="pokeSomebody" data-model="{{model}}" href="javascript:void(0);">{{name}}</a></li>
+                    <li>
+                        <a data-click="pokeSomebody" data-model="{{model}}" href="javascript:void(0);">{{name}}</a>
+                        who is rated {{cuteness}} for overall cuteness.
+                    </li>
                 {{/users}}
             </ul>
 
