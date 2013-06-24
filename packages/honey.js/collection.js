@@ -54,7 +54,6 @@ Honey.Collection = {
         CollectionClass.prototype.filter            = Honey.Collection.Methods.filter;
         CollectionClass.prototype.removeFilter      = Honey.Collection.Methods.removeFilter;
         CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
-        CollectionClass.prototype.defineImmutable   = Honey.Collection.Methods.defineImmutable;
         CollectionClass.prototype._applyChanges     = Honey.Collection.Methods._applyChanges;
 
         // Instantiate the collection, and push a few necessities onto it.
@@ -65,11 +64,6 @@ Honey.Collection = {
         collection._collectionClass = models;
         collection._controllerClass = controller;
         collection._collectionName  = collectionName;
-//        collection.defineImmutable.call(models, '_dimensions', {});
-//        collection.defineImmutable.call(models, '_crossfilter', crossfilter(collection));
-//        collection.defineImmutable.call(models, '_collectionClass', models);
-//        collection.defineImmutable.call(models, '_controllerClass', controller);
-//        collection.defineImmutable.call(models, '_collectionName', collectionName);
 
         return collection;
 
@@ -147,24 +141,6 @@ Honey.Collection = {
             }
 
             this._controllerClass.view.render();
-
-        },
-
-        /**
-         * @method defineImmutable
-         * @param propertyName
-         * @param value
-         * Create a property on the collection object that cannot be removed.
-         * @return {void}
-         */
-        defineImmutable: function(propertyName, value) {
-
-            Object.defineProperty(this, propertyName, {
-                enumerable: false,
-                configurable: false,
-                writable: false,
-                value: value
-            });
 
         },
 
