@@ -25,11 +25,9 @@ App.UsersController = Honey.Controller.extend({
     users: [{ name: 'Boris', cuteness: 6 }, { name: 'Sergei', cuteness: 7 }, { name: 'Alisa', cuteness: 11 }],
 
     filterByCuteness: function() {
-
         this.users.filter('cuteness', function(dimension) {
             return dimension > 6
         });
-
     },
 
     clearCuteness: function() {
@@ -37,9 +35,7 @@ App.UsersController = Honey.Controller.extend({
     },
 
     setName: function() {
-        var name    = prompt('Then who are you?');
-        this.myName = name;
-        this.controllers.application.yourName = name;
+        this.myName = this.controllers.application.yourName = prompt('Then who are you?');
     },
 
     pokeSomebody: function(event, model) {

@@ -1,13 +1,14 @@
 describe('Honey.js', function() {
 
-    var App, testController;
+    var App, testController, testView;
 
     beforeEach(function() {
         App                 = Honey.create({ TEST_ENVIRONMENT: true });
         App.TestController  = Honey.Controller.extend({ russianLady: null, testSuite: 'Jasmine', beenTo: ['Estonia', 'Hong Kong', 'Brazil'], destination: null });
-        App.TestView        = Honey.View.extend();
+        App.TestView        = Honey.View.extend({ viewOnly: 'Hola Amigo!' });
 
         testController      = Honey.Factory.getController('TestController');
+        testView            = Honey.Factory.getView('TestView');
 
         Honey.Bootstrap(App);
     });
@@ -90,6 +91,60 @@ describe('Honey.js', function() {
 
         });
         
+    });
+
+    describe('Honey.View', function() {
+
+        describe('Constructor', function() {
+
+            it('Can create a view that is ready to be instantiated.', function() {
+                expect(typeof App.TestView).toEqual('function');
+            });
+
+
+            it('Extends the `Honey.View.Methods` prototype.', function() {
+                expect(typeof App.TestView.prototype).toEqual('object');
+                expect(typeof App.TestView.prototype.invokeConstructor).toEqual('function');
+                expect(typeof App.TestView.prototype.template).toEqual('object');
+            });
+//
+            it ('Defines the `Methods` object which will be use as the prototype', function() {
+                expect(Honey.View.Methods).toBeTruthy();
+            });
+
+        });
+
+        describe('Instance', function() {
+
+            it('Can instantiate the class constructor.', function() {
+                expect(typeof testView).toEqual('object');
+                expect(testView.name).toEqual('TestView');
+            });
+
+            it('Has access to the prototypes.', function() {
+                expect(typeof testView.invokeConstructor).toEqual('function');
+                expect(typeof testView.template).toEqual('object');
+            });
+
+            it ('Has access to its related controller.', function() {
+                expect(typeof testView.controller).toEqual('object');
+                expect(testView.controller.name).toEqual('TestController');
+            });
+
+            it('Configures itself correctly by defining its own properties.', function() {
+                expect(typeof testView.viewOnly).toEqual('string');
+                expect(testView.viewOnly).toEqual('Hola Amigo!');
+            });
+
+            it ('Can render itself to the DOM.', function() {
+                expect(typeof testView.render).toEqual('function');
+                expect(testView.render('{{viewOnly}}')).toEqual('Hola Amigo!');
+                testController.russianLady = 'Masha';
+                expect(testView.render('{{russianLady}}')).toEqual('Masha');
+            })
+
+        });
+
     });
 
 });

@@ -126,7 +126,7 @@ Honey.View = {
          * Renders the view to the DOM.
          * @return {void}
          */
-        render: function() {
+        render: function(template) {
 
             if (!this.renderable) {
                 // If the view isn't in the correct state to be rendered to the DOM, then
@@ -179,7 +179,7 @@ Honey.View = {
             Honey.assert('You must include `Mustache` to be able to render the views', !!window['Mustache']);
 
             // Render the templates using Mustache, drop it into the hash, and then finally render it to the DOM.
-            var rendered    = Mustache.render(this.template, properties);
+            var rendered    = Mustache.render(this.template || template, properties);
             Honey.View.templates[templateName + 'Template'] = rendered;
 
             if (!node) {
