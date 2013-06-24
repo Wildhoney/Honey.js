@@ -25,7 +25,15 @@ App.UsersController = Honey.Controller.extend({
     users: [{ name: 'Boris', cuteness: 6 }, { name: 'Sergei', cuteness: 7 }, { name: 'Alisa', cuteness: 11 }],
 
     filterByCuteness: function() {
-        this.users.filterRange('cuteness', [6, 11]);
+
+        this.users.filter('cuteness', function(dimension) {
+            return dimension > 6
+        });
+
+    },
+
+    clearCuteness: function() {
+        this.users.removeFilter('cuteness');
     },
 
     setName: function() {
@@ -44,7 +52,7 @@ App.PlaylistController = Honey.Controller.extend({
 
     artists: [],
 
-    removeArtist: function(model) {
+    removeArtist: function(event, model) {
         this.artists.remove(model);
     },
 

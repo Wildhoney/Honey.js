@@ -32,7 +32,11 @@
             {{myName}}: We have {{users.length}} animals in store, didn't you know?
             <input type="button" data-click="setName" value="...But wait! I'm not {{myName}}!" />
 
-            <div>* Can't find what you're after? <a data-click="filterByCuteness" href="javascript:void(0);">Filter by cuteness</a>.</div>
+            <div>
+                * Can't find what you're after?
+                <a data-click="filterByCuteness" href="javascript:void(0);">Filter by cuteness</a> &ndash;
+                <a data-click="clearCuteness" href="javascript:void(0);">Clear le filtering</a>...
+            </div>
 
             <ul>
                 {{#users}}

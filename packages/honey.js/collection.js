@@ -1,3 +1,7 @@
+if (!window.Honey) {
+    Honey = {};
+}
+
 /**
  * @module Honey
  * @class Collection
@@ -16,24 +20,14 @@ Honey.Collection = {
      * @param objects {Array}
      * @param collectionName {String}
      * @param controller {Object}
-     * @return {Array}
+     * @return {Collection}
      */
     create: function(objects, collectionName, controller) {
 
-        var collection = [], models = objects || [];
-
-        collection.add = function add(object) {
-            Honey.Collection.Methods.add.call(controller, object, this);
-        };
-
-        collection.remove = function remove(object) {
-            Honey.Collection.Methods.remove.call(controller, object, this);
-        };
-
-        collection.createDimension = Honey.Collection.Methods.createDimension;
+        var models = [];
 
         // Iterate over all of the objects in the array.
-        models.forEach(function(object) {
+        objects.forEach(function(object) {
 
             // Generate the unique ID for the model.
             var modelId = this.modelId();
@@ -41,15 +35,41 @@ Honey.Collection = {
 
             // Push each model into the mapper, and into the collection.
             this.modelMapper[modelId] = object;
-            collection.push(object);
+            models.push(object);
 
         }, this);
 
-        collection._crossfilter = crossfilter(collection);
-        collection._dimensions  = {};
-        collection.filterRange  = function filterRange(property, range) {
-            Honey.Collection.Methods.filterRange.call(controller, collectionName, property, range, this);
-        };
+        function CollectionClass() {
+
+            // Ugh!
+            models.__proto__ = CollectionClass.prototype;
+            return models;
+
+        }
+
+        // Add all of the custom prototypes on top of the `CollectionClass`.
+        CollectionClass.prototype                   = [];
+        CollectionClass.prototype.add               = Honey.Collection.Methods.add;
+        CollectionClass.prototype.remove            = Honey.Collection.Methods.remove;
+        CollectionClass.prototype.filter            = Honey.Collection.Methods.filter;
+        CollectionClass.prototype.removeFilter      = Honey.Collection.Methods.removeFilter;
+        CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
+        CollectionClass.prototype.defineImmutable   = Honey.Collection.Methods.defineImmutable;
+        CollectionClass.prototype._applyChanges     = Honey.Collection.Methods._applyChanges;
+
+        // Instantiate the collection, and push a few necessities onto it.
+        var collection = new CollectionClass();
+
+        collection._dimensions      = {};
+        collection._crossfilter     = crossfilter(collection);
+        collection._collectionClass = models;
+        collection._controllerClass = controller;
+        collection._collectionName  = collectionName;
+//        collection.defineImmutable.call(models, '_dimensions', {});
+//        collection.defineImmutable.call(models, '_crossfilter', crossfilter(collection));
+//        collection.defineImmutable.call(models, '_collectionClass', models);
+//        collection.defineImmutable.call(models, '_controllerClass', controller);
+//        collection.defineImmutable.call(models, '_collectionName', collectionName);
 
         return collection;
 
@@ -79,9 +99,9 @@ Honey.Collection = {
         /**
          * @method add
          * @param object {Object}
-         * @param collection {Array}
+         * @retirm {void}
          */
-        add: function(object, collection) {
+        add: function(object) {
 
             // Generate the ID for the model's representation, and add set its property.
             var modelId     = Honey.Collection.modelId();
@@ -89,18 +109,20 @@ Honey.Collection = {
 
             // Add it to the mapper, and into the collection!
             Honey.Collection.modelMapper[modelId] = object;
-            collection.push(object);
+            this._collectionClass.push(object);
 
-            this.view.render();
+            this._controllerClass.view.render();
 
         },
 
         /**
          * @method remove
-         * @param object {Object}
-         * @param collection {Array}
+         * @param model {Object}
+         * @return {void}
          */
-        remove: function(object, collection) {
+        remove: function(model) {
+
+            var collection = this._collectionClass;
 
             for (var index in collection) {
 
@@ -109,7 +131,12 @@ Honey.Collection = {
                     continue;
                 }
 
-                if (collection[index].model !== object.model) {
+                if (!collection[index].model) {
+                    // We can't continue if we don't have a model attached.
+                    continue;
+                }
+
+                if (collection[index].model !== model.model) {
                     // Don't continue if the model ID doesn't equal the one we're after.
                     continue;
                 }
@@ -119,7 +146,25 @@ Honey.Collection = {
 
             }
 
-            this.view.render();
+            this._controllerClass.view.render();
+
+        },
+
+        /**
+         * @method defineImmutable
+         * @param propertyName
+         * @param value
+         * Create a property on the collection object that cannot be removed.
+         * @return {void}
+         */
+        defineImmutable: function(propertyName, value) {
+
+            Object.defineProperty(this, propertyName, {
+                enumerable: false,
+                configurable: false,
+                writable: false,
+                value: value
+            });
 
         },
 
@@ -137,11 +182,20 @@ Honey.Collection = {
 
             var dimension = this._dimensions[property];
 
-            if (dimension && forceRecreation) {
-                // Delete the existing dimension and re-create it.
+            if (dimension) {
+
+                if (!forceRecreation) {
+                    // If the dimension exists but we don't want to recreate it, then we can't
+                    // do anything more.
+                    return true;
+                }
+
+                // Delete the dimension so we can add it again.
                 dimension.delete();
+
             }
 
+            // Create the Crossfilter dimension on the property specified.
             this._dimensions[property] = this._crossfilter.dimension(function(d) {
                 return d[property];
             });
@@ -151,21 +205,65 @@ Honey.Collection = {
         },
 
         /**
-         * @method filterRange
-         * @param collectionName {String}
+         * @method filter
          * @param property {String}
-         * @param range {Array}
-         * @param collection {Object}
+         * @param filterMethod {Function}
          * @return {void}
          */
-        filterRange: function(collectionName, property, range, collection) {
+        filter: function(property, filterMethod) {
+
+            var collection  = this._collectionClass,
+                controller  = this._controllerClass;
 
             // Create the dimension if it doesn't yet exist.
             collection.createDimension.apply(collection, [collection, property]);
 
+            // Find the dimension we're dealing with.
             var dimension = collection._dimensions[property];
-            dimension.filterRange(range);
-            this[collectionName] = dimension.top(Infinity);
+
+            dimension.filterFunction(function(dimension) {
+                // Invoke the filter callback.
+                return filterMethod.call(collection, dimension);
+            });
+
+            // Splice the new results into the collection, and finally render the view!
+            this._applyChanges(dimension);
+            controller.view.render();
+
+        },
+
+        /**
+         * @method removeFilter
+         * @param property
+         * Remove the filter based on the property name.
+         * @return {void}
+         */
+        removeFilter: function(property) {
+
+            var collection  = this._collectionClass,
+                controller  = this._controllerClass;
+
+            // Find the dimension we're dealing with, and clear it.
+            var dimension = collection._dimensions[property];
+            dimension.filterAll();
+
+            this._applyChanges(dimension);
+            controller.view.render();
+
+        },
+
+        /**
+         * @method _applyChanges
+         * @param dimension
+         * Apply changes based on a given dimension.
+         * @return {void}
+         * @private
+         */
+        _applyChanges: function(dimension) {
+
+            // Splice the new results into the collection, and finally render the view!
+            var args = [0, this._collectionClass.length].concat(dimension.top(Infinity));
+            Array.prototype.splice.apply(this._collectionClass, args);
 
         }
 

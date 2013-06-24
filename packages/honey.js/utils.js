@@ -7,7 +7,7 @@ Honey.Utils = {
     /**
      * @method getControllerByView
      * @param name {String}
-     * @returns {String}
+     * @return {String}
      */
     getControllerByView: function(name) {
         return name.replace(/View/, 'Controller');
@@ -16,7 +16,7 @@ Honey.Utils = {
     /**
      * @method getViewByController
      * @param name {String}
-     * @returns {String}
+     * @return {String}
      */
     getViewByController: function(name) {
         return name.replace(/Controller/, 'View');
@@ -25,7 +25,7 @@ Honey.Utils = {
     /**
      * @method getTemplateName
      * @param name {String}
-     * @returns {String}
+     * @return {String}
      */
     getTemplateName: function(name) {
         return name.match(new RegExp(/^([A-Z]{1}[a-z]+)/g))[0].toLowerCase();
@@ -34,7 +34,7 @@ Honey.Utils = {
     /**
      * @method getControllerByTemplateName
      * @param name {String}
-     * @returns {String}
+     * @return {String}
      */
     getControllerByTemplateName: function(name) {
         var capitalise = name.charAt(0).toUpperCase() + name.slice(1);

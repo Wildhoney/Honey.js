@@ -22,8 +22,16 @@ Honey.Controller = {
             };
 
             var retrieveChanges = function retrieveChanges() {
+
+                if (!controller.view) {
+                    //If the view doesn't exist yet then we'll attempt to get it from
+                    // the buffer instead.
+                    return controller.buffer[this];
+                }
+
                 // Takes the property from the view.
                 return controller.view[this];
+
             };
 
             for (var property in properties) {
@@ -77,7 +85,6 @@ Honey.Controller = {
         ControllerClass.prototype               = Honey.Controller.Methods;
         ControllerClass.prototype.controllers   = Honey.Factory._controllers;
 
-
         return ControllerClass;
 
     },
@@ -100,7 +107,7 @@ Honey.Controller = {
          * @method propagateChanges
          * @param property {String}
          * @param value {String}
-         * @return {void}
+         * @return {Object}
          */
         propagateChanges: function(property, value) {
 
@@ -109,13 +116,14 @@ Honey.Controller = {
                 // to drop the properties into the controller buffer. Once the view is available,
                 // the buffer will be written, and then deleted from the object.
                 this.buffer[property.valueOf()] = value;
-                return;
+                return this.buffer;
             }
 
             // However, if we do have a view -- which means it's most likely already present in the DOM,
             // then we can assign this property's value, and then re-render the view.
             this.view[property] = value;
             this.view.render();
+            return this.view;
 
         },
 

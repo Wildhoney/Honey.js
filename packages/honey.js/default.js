@@ -8,8 +8,8 @@ var Honey = {
      * @method create
      * @return {Honey.Application}
      */
-    create: function() {
-        return new Honey.Application();
+    create: function(options) {
+        return new Honey.Application(options || false);
     },
 
     /**
@@ -28,7 +28,17 @@ var Honey = {
      * @method Application
      * @constructor
      */
-    Application: function() {
+    Application: function(options) {
+
+        // Invoke the callback once the DOM has been loaded.
+        document.addEventListener('DOMContentLoaded', Honey.Bootstrap.bind(this), false);
+
+    },
+
+    Bootstrap: function(Application) {
+
+        var isTestEnvironment   = (Application instanceof Honey.Application),
+            modules             = isTestEnvironment ? Application : this;
 
         /**
          * @method getType
@@ -58,7 +68,7 @@ var Honey = {
                     continue;
                 }
 
-                if (getType(name) !== 'view') {
+                if (getType(name) !== 'view' || isTestEnvironment) {
                     // If the type of the current item isn't a view, then we can't find its location in the
                     // DOM. Most likely it's a controller, so we'll push those into the collection with zero
                     // ancestors, which should render them first.
@@ -69,7 +79,7 @@ var Honey = {
                 // Discover the template name, then we can find the node, and grab all of its ancestors
                 // using good ol' XPath.
                 var templateName    = Honey.Utils.getTemplateName(name).toLowerCase(),
-                    node            = document.querySelector('[data-template-name="' + templateName+ '"]'),
+                    node            = document.querySelector('[data-template-name="' + templateName + '"]'),
                     xpath           = document.evaluate('ancestor::*', node),
                     count           = 0;
 
@@ -92,47 +102,42 @@ var Honey = {
 
         };
 
-        // Invoke the callback once the DOM has been loaded.
-        document.addEventListener('DOMContentLoaded', function domLoaded() {
+        // Sort the views based on the count of their ancestors.
+        var collection = createHierarchy(modules);
 
-            // Sort the views based on the count of their ancestors.
-            var collection = createHierarchy(this);
+        // Iterate over all of the items in the collection.
+        for (var item in collection) {
 
-            // Iterate over all of the items in the collection.
-            for (var item in collection) {
-
-                if (!collection.hasOwnProperty(item)) {
-                    // Bonjour, hasOwnProperty!
-                    continue;
-                }
-
-                var module = collection[item];
-
-                switch (getType(module.name)) {
-                    // Instantiate either a controller or a view depending on its type.
-                    case ('controller'): Honey.Factory.createController(module); break;
-                    case ('view'): Honey.Factory.createView(module); break;
-                }
+            if (!collection.hasOwnProperty(item)) {
+                // Bonjour, hasOwnProperty!
+                continue;
             }
 
-            // Discover all of the views in the current application.
-            var views = Honey.Factory.getViews();
+            var module = collection[item];
 
-            // Now that we've instantiated all of the controllers and views, we can begin rendering
-            // the views into the DOM.
-            for (var name in views) {
+            switch (getType(module.name)) {
+                // Instantiate either a controller or a view depending on its type.
+                case ('controller'): Honey.Factory.createController(module); break;
+                case ('view'): Honey.Factory.createView(module); break;
+            }
+        }
 
-                if (!views.hasOwnProperty(name)) {
-                    // Wey hey!
-                    continue;
-                }
+        // Discover all of the views in the current application.
+        var views = Honey.Factory.getViews();
 
-                var instance        = Honey.Factory.getView(name);
-                instance.renderable = true;
-                instance.render();
+        // Now that we've instantiated all of the controllers and views, we can begin rendering
+        // the views into the DOM.
+        for (var name in views) {
+
+            if (!views.hasOwnProperty(name)) {
+                // Wey hey!
+                continue;
             }
 
-        }.bind(this), false);
+            var instance        = Honey.Factory.getView(name);
+            instance.renderable = true;
+            instance.render();
+        }
 
     }
 

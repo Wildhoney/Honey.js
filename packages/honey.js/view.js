@@ -105,15 +105,19 @@ Honey.View = {
 
             };
 
-            // List of events to respond to.
-            var events = ['click', 'dblclick', 'mouseover', 'mouseleave'];
+            if (node) {
 
-            // Iterate over all of the desired events.
-            events.forEach(function eventDelegate(eventName) {
-                node.addEventListener(eventName, function(event) {
-                    delegate(eventName, event);
+                // List of events to respond to.
+                var events = ['click', 'dblclick', 'mouseover', 'mouseleave'];
+
+                // Iterate over all of the desired events.
+                events.forEach(function eventDelegate(eventName) {
+                    node.addEventListener(eventName, function(event) {
+                        delegate(eventName, event);
+                    });
                 });
-            });
+
+            }
 
         },
 
@@ -134,7 +138,7 @@ Honey.View = {
             var templateName    = Honey.Utils.getTemplateName(this.name),
                 node            = document.querySelector('[data-template-name="' + templateName + '"]');
 
-            if (!this.template) {
+            if (!this.template && node) {
 
                 // Find all of the SECTION nodes in the document.
                 var xpath = document.evaluate('section', node), section, sections = [];
@@ -177,6 +181,13 @@ Honey.View = {
             // Render the templates using Mustache, drop it into the hash, and then finally render it to the DOM.
             var rendered    = Mustache.render(this.template, properties);
             Honey.View.templates[templateName + 'Template'] = rendered;
+
+            if (!node) {
+                // If we don't have a node then we're probably in test mode.
+                return rendered;
+            }
+
+            // Otherwise we can render the HTML.
             node.innerHTML  = rendered;
 
         }
