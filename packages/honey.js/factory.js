@@ -42,7 +42,7 @@ Honey.Factory = {
      * @return {Object}
      */
     getController: function(name) {
-        return this._controllers[name];
+        return this._controllers[Honey.Utils.getTemplateName(name)];
     },
 
     /**
@@ -68,12 +68,17 @@ Honey.Factory = {
         view.toString               = function() {
             return '[view ' + name + ']';
         };
-        this._views[Object.name]    = view;
+	
+        // Push the view into the collection.
+        this._views[name] = view;
 
+        // Invoke the constructor method if it exists.
         view.invokeConstructor();
 
+        // Find the controller.
         controller = Honey.Factory.getController(Honey.Utils.getControllerByView(name));
 
+        // ...And setup the relationship if possible.
         if (controller) {
             controller._view    = view;
             view.controller     = controller;
@@ -97,12 +102,17 @@ Honey.Factory = {
         controller.toString     = function() {
             return '[controller ' + name + ']';
         };
-        this._controllers[name] = controller;
 
+        // Push the controller into the collection.
+        this._controllers[Honey.Utils.getTemplateName(name)] = controller;
+
+        // Invoke the constructor method if it exists.
         controller.invokeConstructor();
 
+        // Find the view.
         view = Honey.Factory.getView(Honey.Utils.getViewByController(name));
 
+        // ...And setup the relationship if possible.
         if (view) {
             view.controller     = controller;
             controller._view    = view;

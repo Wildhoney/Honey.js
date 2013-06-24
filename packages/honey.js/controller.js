@@ -74,7 +74,10 @@ Honey.Controller = {
 
         };
 
-        ControllerClass.prototype = Honey.Controller.Methods;
+        ControllerClass.prototype               = Honey.Controller.Methods;
+        ControllerClass.prototype.controllers   = Honey.Factory._controllers;
+
+
         return ControllerClass;
 
     },

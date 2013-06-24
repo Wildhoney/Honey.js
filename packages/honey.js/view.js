@@ -70,7 +70,7 @@ Honey.View = {
 
             // Find the template's name, and its SECTION node.
             var templateName    = Honey.Utils.getTemplateName(this.name),
-                node            = document.querySelector('[data-template-name="' + templateName+ '"]');
+                node            = document.querySelector('[data-template-name="' + templateName + '"]');
 
             /**
              * @method delegateEvent

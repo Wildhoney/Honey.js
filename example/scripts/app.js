@@ -25,7 +25,9 @@ App.UsersController = Honey.Controller.extend({
     users: [{ name: 'Boris' }, { name: 'Sergei' }, { name: 'Alisa' }],
 
     setName: function() {
-        this.myName = prompt('Then who are you?');
+        var name = prompt('Then who are you?');
+        this.myName = name;
+        this.controllers.application.yourName = name;
     },
 
     pokeSomebody: function(event, model) {

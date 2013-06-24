@@ -1,7 +1,6 @@
 /**
  * @module Honey
  * @class Honey
- * @type {Object}
  */
 var Honey = {
 
@@ -93,7 +92,7 @@ var Honey = {
 
         };
 
-        // Invoke the callback was the DOM has been loaded.
+        // Invoke the callback once the DOM has been loaded.
         document.addEventListener('DOMContentLoaded', function() {
 
             // Sort the views based on the count of their ancestors.
