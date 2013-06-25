@@ -39,7 +39,7 @@ App.UsersController = Honey.Controller.extend({
     },
 
     pokeSomebody: function(event, model) {
-        alert('You poked, ' + model.name + '! How dare you?')
+        alert('Ow! You poked, ' + model.name + '! How dare you?')
     }
 
 });

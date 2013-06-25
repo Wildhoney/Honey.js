@@ -70,6 +70,7 @@ Honey.Collection = {
         CollectionClass.prototype                   = [];
         CollectionClass.prototype.add               = Honey.Collection.Methods.add;
         CollectionClass.prototype.remove            = Honey.Collection.Methods.remove;
+        CollectionClass.prototype.sort              = Honey.Collection.Methods.sort;
         CollectionClass.prototype.filter            = Honey.Collection.Methods.filter;
         CollectionClass.prototype.removeFilter      = Honey.Collection.Methods.removeFilter;
         CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
@@ -103,7 +104,7 @@ Honey.Collection = {
         /**
          * @method add
          * @param object {Object}
-         * @retirm {void}
+         * @return {Object}
          */
         add: function(object) {
 
@@ -115,14 +116,16 @@ Honey.Collection = {
             Honey.Collection.modelMapper[modelId] = object;
             this._collectionClass.push(object);
 
+            // Re-render the view.
             this._controllerClass.view.render();
+            return object;
 
         },
 
         /**
          * @method remove
          * @param model {Object}
-         * @return {void}
+         * @return {Object}
          */
         remove: function(model) {
 
@@ -151,6 +154,7 @@ Honey.Collection = {
             }
 
             this._controllerClass.view.render();
+            return model;
 
         },
 
@@ -194,7 +198,7 @@ Honey.Collection = {
          * @method filter
          * @param property {String}
          * @param filterMethod {Function}
-         * @return {void}
+         * @return {Object}
          */
         filter: function(property, filterMethod) {
 
@@ -213,8 +217,10 @@ Honey.Collection = {
             });
 
             // Splice the new results into the collection, and finally render the view!
-            this._applyChanges(dimension);
+            var content = dimension.top(Infinity);
+            this._applyChanges(content);
             controller.view.render();
+            return content;
 
         },
 
@@ -222,7 +228,7 @@ Honey.Collection = {
          * @method removeFilter
          * @param property
          * Remove the filter based on the property name.
-         * @return {void}
+         * @return {Object}
          */
         removeFilter: function(property) {
 
@@ -233,22 +239,49 @@ Honey.Collection = {
             var dimension = collection._dimensions[property];
             dimension.filterAll();
 
-            this._applyChanges(dimension);
+            this._applyChanges(dimension.top(Infinity));
             controller.view.render();
+            return dimension;
+
+        },
+
+        /**
+         * @method sort
+         * @param property {String}
+         * @param isAscending {Boolean}
+         * @return {Array}
+         */
+        sort: function(property, isAscending) {
+
+            // Create the `sort` callback using the Crossfilter `quicksort`, and then sort the content
+            // based on the parameters passed in.
+            var collection  = this._collectionClass,
+                controller  = this._controllerClass,
+                sort        = crossfilter.quicksort.by(function(d) { return d[property]; }),
+                content     = sort(collection, 0, collection.length);
+
+            if (!isAscending) {
+                // If we're sorting by descending then we need to reverse the array.
+                content = content.reverse();
+            }
+
+            // Finally we can propagate the changes and re-render the view.
+            this._applyChanges(content);
+            controller.view.render();
+            return content;
 
         },
 
         /**
          * @method _applyChanges
-         * @param dimension
-         * Apply changes based on a given dimension.
+         * @param models {Array}
          * @return {void}
          * @private
          */
-        _applyChanges: function(dimension) {
+        _applyChanges: function(models) {
 
             // Splice the new results into the collection, and finally render the view!
-            var args = [0, this._collectionClass.length].concat(dimension.top(Infinity));
+            var args = [0, this._collectionClass.length].concat(models);
             Array.prototype.splice.apply(this._collectionClass, args);
 
         }
