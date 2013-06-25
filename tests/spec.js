@@ -220,4 +220,24 @@ describe('Honey.js', function() {
 
     });
 
+    describe('Honey.Utils', function() {
+
+        it ('Can transform "IndexView" into "IndexController"', function() {
+            expect(Honey.Utils.getControllerByView('IndexView')).toEqual('IndexController');
+        });
+
+        it ('Can transform "IndexController" into "IndexView"', function() {
+            expect(Honey.Utils.getViewByController('IndexController')).toEqual('IndexView');
+        });
+
+        it ('Can transform "IndexView" into "index"', function() {
+            expect(Honey.Utils.getTemplateName('IndexView')).toEqual('index');
+        });
+
+        it ('Can transform "index" into "IndexController"', function() {
+            expect(Honey.Utils.getControllerByTemplateName('index')).toEqual('IndexController');
+        });
+
+    });
+
 });
