@@ -108,12 +108,7 @@ Honey.View = {
             if (node) {
 
                 // List of events to respond to.
-                var events = ['click', 'dblclick', 'mouseover', 'mouseleave'],
-                    applicationController = Honey.Factory.getController('ApplicationController');
-
-                console.log(Honey.Factory.getControllers());
-
-//                alert(applicationController);
+                var events = ['click', 'dblclick', 'mouseover', 'mouseleave'];
 
                 // Iterate over all of the desired events.
                 events.forEach(function eventDelegate(eventName) {
