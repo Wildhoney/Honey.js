@@ -101,13 +101,12 @@ describe('Honey.js', function() {
                 expect(typeof App.TestView).toEqual('function');
             });
 
-
             it('Extends the `Honey.View.Methods` prototype.', function() {
                 expect(typeof App.TestView.prototype).toEqual('object');
                 expect(typeof App.TestView.prototype.invokeConstructor).toEqual('function');
                 expect(typeof App.TestView.prototype.template).toEqual('object');
             });
-//
+
             it ('Defines the `Methods` object which will be use as the prototype', function() {
                 expect(Honey.View.Methods).toBeTruthy();
             });
@@ -142,6 +141,80 @@ describe('Honey.js', function() {
                 testController.russianLady = 'Masha';
                 expect(testView.render('{{russianLady}}')).toEqual('Masha');
             })
+
+        });
+
+    });
+
+    describe('Honey.Collection', function() {
+
+        describe('Constructor', function() {
+
+            it('Can create a collection that is ready to be instantiated.', function() {
+                expect(typeof testController.beenTo).toEqual('object');
+                expect(testController.beenTo.length).toEqual(3);
+            });
+
+            it('Extends the `Honey.Collection.Methods` prototype.', function() {
+                var CollectionClass = Honey.Collection.getCollectionClass([1,2,3]);
+                expect(typeof CollectionClass.prototype).toEqual('object');
+                expect(typeof CollectionClass.prototype.add).toEqual('function');
+                expect(typeof CollectionClass.prototype.remove).toEqual('function');
+                expect(typeof CollectionClass.prototype.filter).toEqual('function');
+                expect(typeof CollectionClass.prototype.removeFilter).toEqual('function');
+                expect(typeof CollectionClass.prototype.createDimension).toEqual('function');
+                expect(typeof CollectionClass.prototype._applyChanges).toEqual('function');
+            });
+
+            it ('Defines the `Methods` object which will be use as the prototype.', function() {
+                expect(Honey.Collection.Methods).toBeTruthy();
+            });
+
+            it ('Allows the assigning of IDs to their models.', function() {
+                expect(Honey.Collection.modelId()).toBeTruthy();
+                expect(Honey.Collection.create([{ name: 'Adam' }])[0].model).toBeTruthy();
+            });
+
+            it ('Sets up the named properties for dealing with a collection.', function() {
+                var collection = Honey.Collection.create([1,2,3,4,5], 'exampleName', testController);
+                expect(collection._collectionName).toEqual('exampleName');
+                expect(typeof collection._collectionClass).toEqual('object');
+                expect(typeof collection._controllerClass).toEqual('object');
+            });
+
+        });
+
+        describe('Instance', function() {
+
+            it ('Can create a collection based on an array.', function() {
+                var collection = Honey.Collection.create([1,2,3]);
+                expect(collection.length).toEqual(3);
+            });
+
+            it ('Is able to define Crossfilter dimensions on a given property', function() {
+                var collection = Honey.Collection.create([{ moniker: 'Adam' }]);
+                collection.createDimension(collection, 'moniker');
+                expect(collection._dimensions['moniker']).toBeTruthy();
+            });
+
+            it ('Can filter the models based on a given callback method.', function() {
+                var models      = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }],
+                    collection  = Honey.Collection.create(models, 'models', Honey.Factory.getController('TestController'));
+                expect(collection.length).toEqual(4);
+                collection.filter('value', function(d) {
+                    return (d % 2) === 0;
+                });
+                expect(collection.length).toEqual(2);
+            });
+
+            it ('Can clear any active filtering on the collection.', function() {
+                var models      = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }],
+                    collection  = Honey.Collection.create(models, 'models', Honey.Factory.getController('TestController'));
+                collection.filter('value', function() { return false; });
+                expect(collection.length).toEqual(0);
+                collection.removeFilter('value');
+                expect(collection.length).toEqual(4);
+            });
 
         });
 

@@ -20,14 +20,14 @@ Honey.Collection = {
      * @param objects {Array}
      * @param collectionName {String}
      * @param controller {Object}
-     * @return {Collection}
+     * @return {Object}
      */
     create: function(objects, collectionName, controller) {
 
         var models = [];
 
         // Iterate over all of the objects in the array.
-        objects.forEach(function(object) {
+        objects.forEach(function forEach(object) {
 
             // Generate the unique ID for the model.
             var modelId = this.modelId();
@@ -39,12 +39,31 @@ Honey.Collection = {
 
         }, this);
 
-        function CollectionClass() {
+        // Instantiate the collection, and push a few necessities onto it.
+        var CollectionClass = this.getCollectionClass(models),
+            collection      = new CollectionClass();
 
+        collection._dimensions      = {};
+        collection._crossfilter     = crossfilter(collection);
+        collection._collectionClass = models;
+        collection._controllerClass = controller;
+        collection._collectionName  = collectionName;
+
+        return collection;
+
+    },
+
+    /**
+     * @method getCollectionClass
+     * @param models
+     * @returns {Function}
+     */
+    getCollectionClass: function(models) {
+
+        function CollectionClass() {
             // Ugh!
             models.__proto__ = CollectionClass.prototype;
             return models;
-
         }
 
         // Add all of the custom prototypes on top of the `CollectionClass`.
@@ -56,16 +75,7 @@ Honey.Collection = {
         CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
         CollectionClass.prototype._applyChanges     = Honey.Collection.Methods._applyChanges;
 
-        // Instantiate the collection, and push a few necessities onto it.
-        var collection = new CollectionClass();
-
-        collection._dimensions      = {};
-        collection._crossfilter     = crossfilter(collection);
-        collection._collectionClass = models;
-        collection._controllerClass = controller;
-        collection._collectionName  = collectionName;
-
-        return collection;
+        return CollectionClass;
 
     },
 
