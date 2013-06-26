@@ -260,6 +260,18 @@ Honey.Collection = {
                 sort        = crossfilter.quicksort.by(function(d) { return d[property]; }),
                 content     = sort(collection, 0, collection.length);
 
+            // If `isAscending` has not been specified, then we'll cycle through true/false depending
+            // on the previous sort order.
+            isAscending = (typeof isAscending !== 'undefined')  ? isAscending
+                                                                : Honey.Utils.cycleProperty(collection._isAscending, [true, false]);
+
+            // Configure the _isAscending property to keep a track of the sort direction.
+            Object.defineProperty(collection, '_isAscending', {
+                enumerable: false,
+                configurable: true,
+                value: isAscending
+            });
+
             if (!isAscending) {
                 // If we're sorting by descending then we need to reverse the array.
                 content = content.reverse();

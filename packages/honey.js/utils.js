@@ -39,6 +39,20 @@ Honey.Utils = {
     getControllerByTemplateName: function(name) {
         var capitalise = name.charAt(0).toUpperCase() + name.slice(1);
         return capitalise + 'Controller';
+    },
+
+    /**
+     * @method cycleProperty
+     * @param value
+     * @param possibleValues
+     * @return {Number,String,Boolean}
+     */
+    cycleProperty: function(value, possibleValues) {
+        var currentIndex = possibleValues.indexOf(value);
+        if ((currentIndex + 1) >= possibleValues.length) {
+            return possibleValues[0];
+        }
+        return possibleValues[currentIndex + 1];
     }
 
 };
