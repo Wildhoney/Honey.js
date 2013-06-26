@@ -341,7 +341,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 248,
+            "line": 256,
             "itemtype": "method",
             "name": "sort",
             "params": [
@@ -365,7 +365,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 287,
+            "line": 295,
             "itemtype": "method",
             "name": "_applyChanges",
             "params": [

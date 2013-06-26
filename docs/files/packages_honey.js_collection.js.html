@@ -337,6 +337,14 @@ Honey.Collection = {
 
             // Find the dimension we&#x27;re dealing with, and clear it.
             var dimension = collection._dimensions[property];
+
+            if (!dimension) {
+                // We can&#x27;t clear the filter if the dimension doesn&#x27;t exist,
+                // as it means we&#x27;re not filtering on it.
+                return;
+            }
+
+            // Clear the filter!
             dimension.filterAll();
 
             this._applyChanges(dimension.top(Infinity));
