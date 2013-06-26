@@ -10,13 +10,19 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             }
         },
+        concat: {
+            dist: {
+                src: ['packages/honey.js/*.js'],
+                dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
+            }
+        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> by <%= pkg.author %> created on <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
                 src: ['packages/honey.js/*.js'],
-                dest: 'dist/<%= pkg.name %>.min.js'
+                dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
             }
         },
         yuidoc: {
@@ -39,12 +45,13 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 
 };
