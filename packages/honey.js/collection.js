@@ -1,7 +1,3 @@
-if (!window.Honey) {
-    Honey = {};
-}
-
 /**
  * @module Honey
  * @class Collection
