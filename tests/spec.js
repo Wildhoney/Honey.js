@@ -248,4 +248,22 @@ describe('Honey.js', function() {
 
     });
 
+    describe('Honey.Factory', function() {
+
+        it ('Can instantiate a view', function() {
+            var view = Honey.Factory.createView({ Class: App.TestView, name: 'TestView' });
+            expect(Honey.Factory.getView('TestView')).toBeTruthy();
+            expect(view.name).toEqual('TestView');
+            expect(view.toString()).toEqual('[view TestView]');
+        });
+
+        it ('Can instantiate a controller', function() {
+            var view = Honey.Factory.createController({ Class: App.TestController, name: 'TestController' });
+            expect(Honey.Factory.getController('TestController')).toBeTruthy();
+            expect(view.name).toEqual('TestController');
+            expect(view.toString()).toEqual('[controller TestController]');
+        });
+
+    });
+
 });
