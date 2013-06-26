@@ -67,14 +67,7 @@ Honey.Collection = {
         }
 
         // Add all of the custom prototypes on top of the `CollectionClass`.
-        CollectionClass.prototype                   = [];
-        CollectionClass.prototype.add               = Honey.Collection.Methods.add;
-        CollectionClass.prototype.remove            = Honey.Collection.Methods.remove;
-        CollectionClass.prototype.sort              = Honey.Collection.Methods.sort;
-        CollectionClass.prototype.filter            = Honey.Collection.Methods.filter;
-        CollectionClass.prototype.removeFilter      = Honey.Collection.Methods.removeFilter;
-        CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
-        CollectionClass.prototype._applyChanges     = Honey.Collection.Methods._applyChanges;
+        CollectionClass.prototype = Honey.Collection.Methods;
 
         return CollectionClass;
 
