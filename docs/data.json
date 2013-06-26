@@ -802,6 +802,30 @@
             "module": "Honey"
         },
         {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 58,
+            "itemtype": "method",
+            "name": "format",
+            "params": [
+                {
+                    "name": "string",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "formats",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
             "file": "packages\\honey.js\\view.js",
             "line": 7,
             "itemtype": "property",
