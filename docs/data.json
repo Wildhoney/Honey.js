@@ -1,0 +1,902 @@
+{
+    "project": {
+        "name": "Honey"
+    },
+    "files": {
+        "packages\\honey.js\\collection.js": {
+            "name": "packages\\honey.js\\collection.js",
+            "modules": {
+                "Honey": 1
+            },
+            "classes": {
+                "Collection": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "packages\\honey.js\\controller.js": {
+            "name": "packages\\honey.js\\controller.js",
+            "modules": {},
+            "classes": {
+                "Controller": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "packages\\honey.js\\default.js": {
+            "name": "packages\\honey.js\\default.js",
+            "modules": {},
+            "classes": {
+                "Honey": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "packages\\honey.js\\factory.js": {
+            "name": "packages\\honey.js\\factory.js",
+            "modules": {},
+            "classes": {
+                "Factory": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "packages\\honey.js\\utils.js": {
+            "name": "packages\\honey.js\\utils.js",
+            "modules": {},
+            "classes": {
+                "Utils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "packages\\honey.js\\view.js": {
+            "name": "packages\\honey.js\\view.js",
+            "modules": {},
+            "classes": {
+                "View": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Honey": {
+            "name": "Honey",
+            "submodules": {},
+            "classes": {
+                "Collection": 1,
+                "Controller": 1,
+                "Honey": 1,
+                "Factory": 1,
+                "Utils": 1,
+                "View": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "packages\\honey.js\\view.js",
+            "line": 1
+        }
+    },
+    "classes": {
+        "Collection": {
+            "name": "Collection",
+            "shortname": "Collection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\collection.js",
+            "line": 5
+        },
+        "Controller": {
+            "name": "Controller",
+            "shortname": "Controller",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\controller.js",
+            "line": 1
+        },
+        "Honey": {
+            "name": "Honey",
+            "shortname": "Honey",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\default.js",
+            "line": 1
+        },
+        "Factory": {
+            "name": "Factory",
+            "shortname": "Factory",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\factory.js",
+            "line": 1
+        },
+        "Utils": {
+            "name": "Utils",
+            "shortname": "Utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\utils.js",
+            "line": 1
+        },
+        "View": {
+            "name": "View",
+            "shortname": "View",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Honey",
+            "namespace": "",
+            "file": "packages\\honey.js\\view.js",
+            "line": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 11,
+            "itemtype": "property",
+            "name": "modelMapper",
+            "type": "{Object}",
+            "default": "{}",
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 18,
+            "itemtype": "method",
+            "name": "create",
+            "params": [
+                {
+                    "name": "objects",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "collectionName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 56,
+            "itemtype": "method",
+            "name": "getCollectionClass",
+            "params": [
+                {
+                    "name": "models",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Function"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 83,
+            "itemtype": "method",
+            "name": "modelId\nCreate the unique model ID.",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 104,
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 125,
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 161,
+            "description": "Creates a dimension if it doesn't already exist. Can also force the creation of\nthe new dimension by passed \"true\" to the third argument -- useful for when new\nitems are added to the collection.",
+            "itemtype": "method",
+            "name": "createDimension",
+            "params": [
+                {
+                    "name": "collection",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "forceRecreation",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "whether the dimension creation process was a success or not.",
+                "type": "Boolean"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 197,
+            "itemtype": "method",
+            "name": "filter",
+            "params": [
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "filterMethod",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 227,
+            "itemtype": "method",
+            "name": "removeFilter",
+            "params": [
+                {
+                    "name": "property!~YUIDOC_LINE~!Remove",
+                    "description": "the filter based on the property name."
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 248,
+            "itemtype": "method",
+            "name": "sort",
+            "params": [
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "isAscending",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\collection.js",
+            "line": 287,
+            "itemtype": "method",
+            "name": "_applyChanges",
+            "params": [
+                {
+                    "name": "models",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Collection",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 7,
+            "description": "Extends the controller.",
+            "params": [
+                {
+                    "name": "properties",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 53,
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "\nPropagates all changes to the controller to the view.",
+                    "type": "String"
+                }
+            ],
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 60,
+            "description": "Finds the property on the corresponding view.",
+            "itemtype": "method",
+            "name": "get",
+            "return": {
+                "description": "",
+                "type": "String,Number,Object,Boolean"
+            },
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 94,
+            "itemtype": "method",
+            "name": "invokeConstructor\nInvoke the constructor if it exists.",
+            "return": {
+                "description": "",
+                "type": "Param"
+            },
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 106,
+            "itemtype": "method",
+            "name": "propagateChanges",
+            "params": [
+                {
+                    "name": "property",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\controller.js",
+            "line": 130,
+            "itemtype": "method",
+            "name": "attachedView\nInvoked when the view is attached to the controller.",
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Controller",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 7,
+            "itemtype": "method",
+            "name": "create",
+            "return": {
+                "description": "",
+                "type": "Honey.Application"
+            },
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 15,
+            "itemtype": "method",
+            "name": "assert",
+            "params": [
+                {
+                    "name": "description",
+                    "description": ""
+                },
+                {
+                    "name": "assertion",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "Application",
+            "is_constructor": 1,
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 43,
+            "itemtype": "method",
+            "name": "getType",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 52,
+            "itemtype": "method",
+            "name": "createHierarchy",
+            "params": [
+                {
+                    "name": "modules",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 7,
+            "itemtype": "property",
+            "name": "_controllers",
+            "type": "{Object}",
+            "default": "{}",
+            "access": "private",
+            "tagname": "",
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 15,
+            "itemtype": "property",
+            "name": "_views",
+            "type": "{Object}",
+            "default": "{}",
+            "access": "private",
+            "tagname": "",
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 23,
+            "itemtype": "method",
+            "name": "getControllers",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 31,
+            "itemtype": "method",
+            "name": "getViews",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 39,
+            "itemtype": "method",
+            "name": "getController",
+            "params": [
+                {
+                    "name": "name",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 48,
+            "itemtype": "method",
+            "name": "getView",
+            "params": [
+                {
+                    "name": "name",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "createView",
+            "params": [
+                {
+                    "name": "Object",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object.Class"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\factory.js",
+            "line": 91,
+            "itemtype": "method",
+            "name": "createController",
+            "params": [
+                {
+                    "name": "Object",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object.Class"
+            },
+            "class": "Factory",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 7,
+            "itemtype": "method",
+            "name": "getControllerByView",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "getViewByController",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 25,
+            "itemtype": "method",
+            "name": "getTemplateName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 34,
+            "itemtype": "method",
+            "name": "getControllerByTemplateName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\utils.js",
+            "line": 44,
+            "itemtype": "method",
+            "name": "cycleProperty",
+            "params": [
+                {
+                    "name": "value",
+                    "description": ""
+                },
+                {
+                    "name": "possibleValues",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number,String,Boolean"
+            },
+            "class": "Utils",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 7,
+            "itemtype": "property",
+            "name": "templates",
+            "type": "Object",
+            "default": "{}\nHash of all templates.",
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 15,
+            "description": "Extends a view",
+            "params": [
+                {
+                    "name": "properties",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 39,
+            "itemtype": "property",
+            "name": "Methods",
+            "type": "{Object}\nAll methods relating to view instances.",
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 46,
+            "itemtype": "property",
+            "name": "template",
+            "type": "{String}\nMustache template for the view.",
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 53,
+            "itemtype": "method",
+            "name": "invokeConstructor\nInvoke the constructor if it exists.",
+            "return": {
+                "description": "",
+                "type": "Param"
+            },
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 65,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 75,
+            "itemtype": "method",
+            "name": "delegateEvent",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "event",
+                    "description": "",
+                    "type": "Event"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 124,
+            "itemtype": "method",
+            "name": "render\nRenders the view to the DOM.",
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "View",
+            "module": "Honey"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " packages\\honey.js\\collection.js:56"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " packages\\honey.js\\factory.js:57"
+        },
+        {
+            "message": "Missing item type\nExtends the controller.",
+            "line": " packages\\honey.js\\controller.js:7"
+        },
+        {
+            "message": "Missing item type\nExtends a view",
+            "line": " packages\\honey.js\\view.js:15"
+        }
+    ]
+}

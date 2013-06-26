@@ -11,8 +11,12 @@ module.exports = function(grunt) {
             }
         },
         concat: {
+            options: {
+                banner: '/*! <%= pkg.name %> by <%= pkg.author %> created on <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
             dist: {
-                src: ['packages/honey.js/*.js'],
+                src: ['packages/honey.js/default.js', 'packages/honey.js/collection.js', 'packages/honey.js/controller.js',
+                      'packages/honey.js/factory.js', 'packages/honey.js/utils.js', 'packages/honey.js/view.js'],
                 dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
             }
         },
@@ -21,7 +25,7 @@ module.exports = function(grunt) {
                 banner: '/*! <%= pkg.name %> by <%= pkg.author %> created on <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: ['packages/honey.js/*.js'],
+                src: ['dist/<%= pkg.name %>.<%= pkg.version %>.js'],
                 dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
             }
         },
@@ -36,7 +40,7 @@ module.exports = function(grunt) {
         },
         jasmine: {
             pivotal: {
-                src: ['packages/honey.js/*.js'],
+                src: ['dist/<%= pkg.name %>.<%= pkg.version %>.min.js'],
                 options: {
                     specs: 'tests/spec.js',
                     helpers: ['node_modules/mustache/mustache.js', 'node_modules/crossfilter/crossfilter.js']
@@ -52,6 +56,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'yuidoc', 'jasmine']);
 
 };
