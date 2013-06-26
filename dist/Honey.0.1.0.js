@@ -9,14 +9,15 @@ var Honey = {
      * @method create
      * @return {Honey.Application}
      */
-    create: function(options) {
-        return new Honey.Application(options || false);
+    create: function() {
+        return new Honey.Application();
     },
 
     /**
      * @method assert
      * @param description
      * @param assertion
+     * @throw {Error}
      * @return {void}
      */
     assert: function(description, assertion) {
@@ -27,15 +28,22 @@ var Honey = {
 
     /**
      * @method Application
+     * @return {Function}
      * @constructor
      */
-    Application: function(options) {
+    Application: function() {
 
         // Invoke the callback once the DOM has been loaded.
-        document.addEventListener('DOMContentLoaded', Honey.Bootstrap.bind(this), false);
+        return document.addEventListener('DOMContentLoaded', Honey.Bootstrap.bind(this), false);
 
     },
 
+    /**
+     * @method Bootstrap
+     * @param [Application = []]
+     * @return {Array}
+     * @constructor
+     */
     Bootstrap: function(Application) {
 
         var isTestEnvironment   = (Application instanceof Honey.Application),
@@ -139,6 +147,9 @@ var Honey = {
             instance.renderable = true;
             instance.render();
         }
+
+        // Voila!
+        return collection;
 
     }
 

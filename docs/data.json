@@ -505,6 +505,7 @@
                     "description": ""
                 }
             ],
+            "throw": "{Error}",
             "return": {
                 "description": "",
                 "type": "Void"
@@ -514,16 +515,39 @@
         },
         {
             "file": "packages\\honey.js\\default.js",
-            "line": 27,
+            "line": 28,
             "itemtype": "method",
             "name": "Application",
+            "return": {
+                "description": "",
+                "type": "Function"
+            },
             "is_constructor": 1,
             "class": "Honey",
             "module": "Honey"
         },
         {
             "file": "packages\\honey.js\\default.js",
-            "line": 43,
+            "line": 40,
+            "itemtype": "method",
+            "name": "Bootstrap",
+            "params": [
+                {
+                    "name": "[Application",
+                    "description": "= []]"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "is_constructor": 1,
+            "class": "Honey",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\default.js",
+            "line": 51,
             "itemtype": "method",
             "name": "getType",
             "params": [
@@ -542,7 +566,7 @@
         },
         {
             "file": "packages\\honey.js\\default.js",
-            "line": 52,
+            "line": 60,
             "itemtype": "method",
             "name": "createHierarchy",
             "params": [
@@ -885,6 +909,10 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " packages\\honey.js\\collection.js:56"
+        },
+        {
+            "message": "unknown tag: throw",
+            "line": " packages\\honey.js\\default.js:15"
         },
         {
             "message": "replacing incorrect tag: returns with return",
