@@ -787,11 +787,13 @@
             "params": [
                 {
                     "name": "value",
-                    "description": ""
+                    "description": "",
+                    "type": "Number,String,Boolean"
                 },
                 {
                     "name": "possibleValues",
-                    "description": ""
+                    "description": "",
+                    "type": "Array"
                 }
             ],
             "return": {
@@ -918,7 +920,26 @@
         },
         {
             "file": "packages\\honey.js\\view.js",
-            "line": 124,
+            "line": 100,
+            "itemtype": "method",
+            "name": "invokeEventMethod",
+            "params": [
+                {
+                    "name": "representation",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "View",
+            "module": "Honey"
+        },
+        {
+            "file": "packages\\honey.js\\view.js",
+            "line": 141,
             "itemtype": "method",
             "name": "render\nRenders the view to the DOM.",
             "return": {

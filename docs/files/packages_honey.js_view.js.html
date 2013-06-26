@@ -197,11 +197,28 @@ Honey.View = {
                     controllerName  = Honey.Utils.getControllerByTemplateName(templateName),
                     controller      = Honey.Factory.getController(controllerName);
 
-                // Ensure that the event has been created on the controller.
-                Honey.assert(&#x27;You must specify the &#x60;&#x27; + method + &#x27;&#x60; event on the &#x60;&#x27; + controllerName + &#x27;&#x60;&#x27;, !!controller[method]);
+                /**
+                 * @method invokeEventMethod
+                 * @param representation {String}
+                 * @return {void}
+                 */
+                var invokeEventMethod = function invokeEventMethod(representation) {
+                    
+                    var matches = representation.match(/^([a-z0-9]+)(?:\((.+)\))?/i),
+                        method  = matches[1],
+                        args    = (typeof matches[2] === &#x27;undefined&#x27; ? &#x27;&#x27; : matches[2]).split(/,/).map(function(argument) {
+                            return argument.trim();
+                        });
 
-                // Finally we can invoke it, passing the model and the event to the method.
-                controller[method].apply(controller, [event, Honey.Collection.modelMapper[model]]);
+                    // Ensure that the event has been created on the controller.
+                    Honey.assert(&#x27;You must specify the &#x60;&#x27; + method + &#x27;&#x60; event on the &#x60;&#x27; + controllerName + &#x27;&#x60;&#x27;, !!controller[method]);
+
+                    // Finally we can invoke it, passing the model and the event to the method.
+                    controller[method].apply(controller, [event, Honey.Collection.modelMapper[model], [args]]);
+
+                };
+
+                invokeEventMethod(method);
 
             };
 

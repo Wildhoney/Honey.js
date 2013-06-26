@@ -799,8 +799,8 @@ Honey.Utils = {
 
     /**
      * @method cycleProperty
-     * @param value
-     * @param possibleValues
+     * @param value {Number,String,Boolean}
+     * @param possibleValues {Array}
      * @return {Number,String,Boolean}
      */
     cycleProperty: function(value, possibleValues) {
@@ -932,11 +932,28 @@ Honey.View = {
                     controllerName  = Honey.Utils.getControllerByTemplateName(templateName),
                     controller      = Honey.Factory.getController(controllerName);
 
-                // Ensure that the event has been created on the controller.
-                Honey.assert('You must specify the `' + method + '` event on the `' + controllerName + '`', !!controller[method]);
+                /**
+                 * @method invokeEventMethod
+                 * @param representation {String}
+                 * @return {void}
+                 */
+                var invokeEventMethod = function invokeEventMethod(representation) {
+                    
+                    var matches = representation.match(/^([a-z0-9]+)(?:\((.+)\))?/i),
+                        method  = matches[1],
+                        args    = (typeof matches[2] === 'undefined' ? '' : matches[2]).split(/,/).map(function(argument) {
+                            return argument.trim();
+                        });
 
-                // Finally we can invoke it, passing the model and the event to the method.
-                controller[method].apply(controller, [event, Honey.Collection.modelMapper[model]]);
+                    // Ensure that the event has been created on the controller.
+                    Honey.assert('You must specify the `' + method + '` event on the `' + controllerName + '`', !!controller[method]);
+
+                    // Finally we can invoke it, passing the model and the event to the method.
+                    controller[method].apply(controller, [event, Honey.Collection.modelMapper[model], [args]]);
+
+                };
+
+                invokeEventMethod(method);
 
             };
 
