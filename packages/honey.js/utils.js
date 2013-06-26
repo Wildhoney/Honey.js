@@ -43,8 +43,8 @@ Honey.Utils = {
 
     /**
      * @method cycleProperty
-     * @param value
-     * @param possibleValues
+     * @param value {Number,String,Boolean}
+     * @param possibleValues {Array}
      * @return {Number,String,Boolean}
      */
     cycleProperty: function(value, possibleValues) {
