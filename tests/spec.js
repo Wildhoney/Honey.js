@@ -222,20 +222,28 @@ describe('Honey.js', function() {
 
     describe('Honey.Utils', function() {
 
-        it ('Can transform "IndexView" into "IndexController"', function() {
+        it ('Can transform "IndexView" into "IndexController".', function() {
             expect(Honey.Utils.getControllerByView('IndexView')).toEqual('IndexController');
         });
 
-        it ('Can transform "IndexController" into "IndexView"', function() {
+        it ('Can transform "IndexController" into "IndexView".', function() {
             expect(Honey.Utils.getViewByController('IndexController')).toEqual('IndexView');
         });
 
-        it ('Can transform "IndexView" into "index"', function() {
+        it ('Can transform "IndexView" into "index".', function() {
             expect(Honey.Utils.getTemplateName('IndexView')).toEqual('index');
         });
 
-        it ('Can transform "index" into "IndexController"', function() {
+        it ('Can transform "index" into "IndexController".', function() {
             expect(Honey.Utils.getControllerByTemplateName('index')).toEqual('IndexController');
+        });
+
+        it ('Can cycle through properties given a value.', function() {
+            expect(Honey.Utils.cycleProperty(true, [true, false])).toEqual(false);
+            expect(Honey.Utils.cycleProperty(false, [true, false])).toEqual(true);
+            expect(Honey.Utils.cycleProperty(1, [1,2,3])).toEqual(2);
+            expect(Honey.Utils.cycleProperty(2, [1,2,3])).toEqual(3);
+            expect(Honey.Utils.cycleProperty(3, [1,2,3])).toEqual(1);
         });
 
     });
