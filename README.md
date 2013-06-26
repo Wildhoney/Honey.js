@@ -12,6 +12,7 @@ Philosophy
 * Allows you to create a dynamic hierarchy;
 * Doesn't drift far from native JavaScript methods;
 * Controllers/views can be loaded in any order;
+* Doesn't extend any prototypes, such as `Object`, `Function`, `String`, et cetera...;
 
 
 Quick Tutorial

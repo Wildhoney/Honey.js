@@ -53,6 +53,27 @@ Honey.Utils = {
             return possibleValues[0];
         }
         return possibleValues[currentIndex + 1];
+    },
+
+    /**
+     * @method format
+     * @param string {String}
+     * @param formats {Array}
+     * @return {String}
+     */
+    format: function(string, formats) {
+
+        var index = 0;
+
+        return string.replace(/%@([0-9]+)?/g, function(formatString, argIndex) {
+
+            argIndex        = (argIndex) ? parseInt(argIndex,0) - 1 : index++ ;
+            formatString    = formats[argIndex];
+
+            return ((formatString === null) ? '(null)' : (formatString === undefined) ? '' : formatString).toString();
+
+        });
+
     }
 
 };
