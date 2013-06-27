@@ -73,11 +73,11 @@ The Honey framework also comes with collections (`Honey.Collection`) that allows
 
 Honey will automatically convert defined arrays (`[]`) into the type `Honey.Collection`. Honey.js does **NOT** extend common prototypes. Some of the methods that `Honey.Collection` adds on top of native array methods:
 
-    * `add` &ndash; add a new object to the collection &ndash; adding a new item will also update the Crossfilter;
-    * `remove` &ndash; remove an object from the collection by the model (`{{model}}`);
-    * `filter` &ndash; filter the collection using <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> &ndash; takes the `property` name as well as the callback method to filter the dimension;
-    * `removeFilter` &ndash; remove a filter based on the `property` name;
-    * `sort` &ndash; sort the collection by the `property`, and optional `isAscending` &ndash; if `isAscending` is not specified then each subsequent call will invert the sort order;
+* `add` &ndash; add a new object to the collection &ndash; adding a new item will also update the Crossfilter;
+* `remove` &ndash; remove an object from the collection by the model (`{{model}}`);
+* `filter` &ndash; filter the collection using <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> &ndash; takes the `property` name as well as the callback method to filter the dimension;
+* `removeFilter` &ndash; remove a filter based on the `property` name;
+* `sort` &ndash; sort the collection by the `property`, and optional `isAscending` &ndash; if `isAscending` is not specified then each subsequent call will invert the sort order;
 
 Therefore to add a filter to the `cats` collection:
 
