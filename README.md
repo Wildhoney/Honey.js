@@ -65,6 +65,29 @@ You then need the `changeName` method in your `UsersController`:
 
 The template will then automatically update. Absolutely no properties are set in the controller, but are set *through* the controller, which then use `defineProperty` to update the view. The accessor method for each controller defined property retrieves it from the associated view.
 
+The Honey framework also comes with collections (`Honey.Collection`) that allows you to add/remove objects, as well as filter them. `Honey.Collection`s when used with native JavaScript arrays **do not** update when an object's property value is changed &ndash; for that you'll need to use `Honey.Model`. Nevertheless, to begin you can create a collection by defining it in the controller:
+
+    App.PetsController = Honey.Controller.extend({
+        cats: [{ name: 'HoneyBoo' }, { name: 'Honeypot' }, { name: 'Honeydew }]
+    });
+
+Honey will automatically convert defined arrays (`[]`) into the type `Honey.Collection`. Honey.js does **NOT** extend common prototypes. Some of the methods that `Honey.Collection` adds on top of native array methods:
+
+    * `add` &ndash; add a new object to the collection &ndash; adding a new item will also update the Crossfilter;
+    * `remove` &ndash; remove an object from the collection by the model (`{{model}}`);
+    * `filter` &ndash; filter the collection using <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter</a> &ndash; takes the `property` name as well as the callback method to filter the dimension;
+    * `removeFilter` &ndash; remove a filter based on the `property` name;
+    * `sort` &ndash; sort the collection by the `property`, and optional `isAscending` &ndash; if `isAscending` is not specified then each subsequent call will invert the sort order;
+
+Therefore to add a filter to the `cats` collection:
+
+    this.cats.filter('name', function(dimension) {
+        return (dimension === 'HoneyBoo');
+    });
+
+Will leave us with just `HoneyBoo`. In order to remove the filter we can invoke `removeFilter`:
+
+    this.cats.removeFilter('name');
 
 Quick Tutorial
 -------------
