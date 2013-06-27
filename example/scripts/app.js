@@ -46,7 +46,13 @@ App.UsersController = Honey.Controller.extend({
 
 App.PlaylistController = Honey.Controller.extend({
 
-    artists: [],
+    artists: [{ name: 'Oasis' }, { name: 'Blur' }, { name: 'Otep' }],
+
+    beginningWithO: function() {
+        this.artists.filter('name', function(dimension) {
+            return dimension.charAt(0) === 'O';
+        });
+    },
 
     removeArtist: function(event, model) {
         this.artists.remove(model);

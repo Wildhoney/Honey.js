@@ -108,6 +108,8 @@ Honey.Collection = {
          */
         add: function(object) {
 
+            var dimension;
+
             // Generate the ID for the model's representation, and add set its property.
             var modelId     = Honey.Collection.modelId();
             object.model    = modelId;
@@ -115,6 +117,21 @@ Honey.Collection = {
             // Add it to the mapper, and into the collection!
             Honey.Collection.modelMapper[modelId] = object;
             this._collectionClass.push(object);
+            this._crossfilter.add([object]);
+
+            // Store the first dimension we come across.
+            for (var name in this._dimensions) {
+                if (!this._dimensions.hasOwnProperty(name) || dimension) {
+                    // Aha!
+                    continue;
+                }
+                dimension = this._dimensions[name];
+            }
+
+            if (dimension) {
+                // If we have a dimension then we can apply the changes from it.
+                this._applyChanges(dimension.crossfilter.top(Infinity));
+            }
 
             // Re-render the view.
             this._controllerClass.view.render();
@@ -168,7 +185,7 @@ Honey.Collection = {
          * @param forceRecreation {Boolean}
          * @return {Boolean} whether the dimension creation process was a success or not.
          */
-        createDimension: function(collection, property, forceRecreation) {
+        createDimension: function(collection, property, forceRecreation, filterMethod) {
 
             var dimension = this._dimensions[property];
 
@@ -181,16 +198,21 @@ Honey.Collection = {
                 }
 
                 // Delete the dimension so we can add it again.
-                dimension.delete();
+                dimension.crossfilter.remove();
 
             }
 
-            // Create the Crossfilter dimension on the property specified.
-            this._dimensions[property] = this._crossfilter.dimension(function(d) {
-                return d[property];
-            });
+//            console.log(collection.length);
 
-            return true;
+            // Create the Crossfilter dimension on the property specified.
+            this._dimensions[property] = {
+                method      : filterMethod,
+                crossfilter : this._crossfilter.dimension(function(d) {
+                    return d[property];
+                })
+            };
+
+            return this._dimensions[property];
 
         },
 
@@ -206,18 +228,18 @@ Honey.Collection = {
                 controller  = this._controllerClass;
 
             // Create the dimension if it doesn't yet exist.
-            collection.createDimension.apply(collection, [collection, property]);
+            collection.createDimension.apply(collection, [collection, property, true, filterMethod]);
 
             // Find the dimension we're dealing with.
             var dimension = collection._dimensions[property];
 
-            dimension.filterFunction(function(dimension) {
+            dimension.crossfilter.filterFunction(function(dimension) {
                 // Invoke the filter callback.
                 return filterMethod.call(collection, dimension);
             });
 
             // Splice the new results into the collection, and finally render the view!
-            var content = dimension.top(Infinity);
+            var content = dimension.crossfilter.top(Infinity);
             this._applyChanges(content);
             controller.view.render();
             return content;
@@ -236,7 +258,7 @@ Honey.Collection = {
                 controller  = this._controllerClass;
 
             // Find the dimension we're dealing with, and clear it.
-            var dimension = collection._dimensions[property];
+            var dimension = collection._dimensions[property].crossfilter;
 
             if (!dimension) {
                 // We can't clear the filter if the dimension doesn't exist,

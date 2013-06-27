@@ -250,7 +250,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 125,
+            "line": 142,
             "itemtype": "method",
             "name": "remove",
             "params": [
@@ -269,7 +269,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 161,
+            "line": 178,
             "description": "Creates a dimension if it doesn't already exist. Can also force the creation of\nthe new dimension by passed \"true\" to the third argument -- useful for when new\nitems are added to the collection.",
             "itemtype": "method",
             "name": "createDimension",
@@ -299,7 +299,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 197,
+            "line": 219,
             "itemtype": "method",
             "name": "filter",
             "params": [
@@ -323,7 +323,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 227,
+            "line": 249,
             "itemtype": "method",
             "name": "removeFilter",
             "params": [
@@ -341,7 +341,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 256,
+            "line": 278,
             "itemtype": "method",
             "name": "sort",
             "params": [
@@ -365,7 +365,7 @@
         },
         {
             "file": "packages\\honey.js\\collection.js",
-            "line": 295,
+            "line": 317,
             "itemtype": "method",
             "name": "_applyChanges",
             "params": [
