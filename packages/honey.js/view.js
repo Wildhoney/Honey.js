@@ -223,6 +223,7 @@ Honey.View = {
             };
 
             if (!this.inDOM) {
+                this.element = node;
                 attemptInvoke.call(this, 'didInsert');
                 this.inDOM = true;
                 return;
