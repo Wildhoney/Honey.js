@@ -25,7 +25,7 @@ App.UsersController = Honey.Controller.extend({
     users: [{ name: 'Boris', cuteness: 6 }, { name: 'Sergei', cuteness: 7 }, { name: 'Alisa', cuteness: 11 }],
 
     filterByCuteness: function() {
-        this.users.filter('cuteness', function(dimension) {
+        this.users.addFilter('cuteness', function(dimension) {
             return dimension > 6
         });
     },
@@ -49,17 +49,17 @@ App.PlaylistController = Honey.Controller.extend({
     artists: [{ name: 'Oasis' }, { name: 'Blur' }, { name: 'Otep' }],
 
     beginningWithO: function() {
-        this.artists.filter('name', function(dimension) {
+        this.artists.addFilter('name', function(dimension) {
             return dimension.charAt(0) === 'O';
         });
     },
 
     removeArtist: function(event, model) {
-        this.artists.remove(model);
+        this.artists.removeItem(model);
     },
 
     addArtist: function() {
-        this.artists.add({ name: prompt('Which artist do you love?') });
+        this.artists.addItem({ name: prompt('Which artist do you love?') });
     }
 
 });

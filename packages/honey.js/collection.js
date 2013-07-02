@@ -68,12 +68,12 @@ Honey.Collection = {
 
         // Add all of the custom prototypes on top of the `CollectionClass`.
         CollectionClass.prototype                   = [];
-        CollectionClass.prototype.add               = Honey.Collection.Methods.add;
-        CollectionClass.prototype.remove            = Honey.Collection.Methods.remove;
+        CollectionClass.prototype.addItem           = Honey.Collection.Methods.addItem;
+        CollectionClass.prototype.removeItem        = Honey.Collection.Methods.removeItem;
         CollectionClass.prototype.sort              = Honey.Collection.Methods.sort;
-        CollectionClass.prototype.filter            = Honey.Collection.Methods.filter;
+        CollectionClass.prototype.addFilter         = Honey.Collection.Methods.addFilter;
         CollectionClass.prototype.removeFilter      = Honey.Collection.Methods.removeFilter;
-        CollectionClass.prototype.createDimension   = Honey.Collection.Methods.createDimension;
+        CollectionClass.prototype._createDimension  = Honey.Collection.Methods._createDimension;
         CollectionClass.prototype._applyChanges     = Honey.Collection.Methods._applyChanges;
 
         return CollectionClass;
@@ -106,7 +106,7 @@ Honey.Collection = {
          * @param object {Object}
          * @return {Object}
          */
-        add: function(object) {
+        addItem: function(object) {
 
             var dimension;
 
@@ -144,7 +144,7 @@ Honey.Collection = {
          * @param model {Object}
          * @return {Object}
          */
-        remove: function(model) {
+        removeItem: function(model) {
 
             var collection = this._collectionClass;
 
@@ -176,59 +176,18 @@ Honey.Collection = {
         },
 
         /**
-         * Creates a dimension if it doesn't already exist. Can also force the creation of
-         * the new dimension by passed "true" to the third argument -- useful for when new
-         * items are added to the collection.
-         * @method createDimension
-         * @param collection {Object}
-         * @param property {String}
-         * @param forceRecreation {Boolean}
-         * @return {Boolean} whether the dimension creation process was a success or not.
-         */
-        createDimension: function(collection, property, forceRecreation, filterMethod) {
-
-            var dimension = this._dimensions[property];
-
-            if (dimension) {
-
-                if (!forceRecreation) {
-                    // If the dimension exists but we don't want to recreate it, then we can't
-                    // do anything more.
-                    return true;
-                }
-
-                // Delete the dimension so we can add it again.
-                dimension.crossfilter.remove();
-
-            }
-
-//            console.log(collection.length);
-
-            // Create the Crossfilter dimension on the property specified.
-            this._dimensions[property] = {
-                method      : filterMethod,
-                crossfilter : this._crossfilter.dimension(function(d) {
-                    return d[property];
-                })
-            };
-
-            return this._dimensions[property];
-
-        },
-
-        /**
          * @method filter
          * @param property {String}
          * @param filterMethod {Function}
          * @return {Object}
          */
-        filter: function(property, filterMethod) {
+        addFilter: function(property, filterMethod) {
 
             var collection  = this._collectionClass,
                 controller  = this._controllerClass;
 
             // Create the dimension if it doesn't yet exist.
-            collection.createDimension.apply(collection, [collection, property, true, filterMethod]);
+            collection._createDimension.apply(collection, [collection, property, true, filterMethod]);
 
             // Find the dimension we're dealing with.
             var dimension = collection._dimensions[property];
@@ -250,7 +209,7 @@ Honey.Collection = {
          * @method removeFilter
          * @param property
          * Remove the filter based on the property name.
-         * @return {Object}
+         * @return {Object,Boolean}
          */
         removeFilter: function(property) {
 
@@ -263,7 +222,7 @@ Honey.Collection = {
             if (!dimension) {
                 // We can't clear the filter if the dimension doesn't exist,
                 // as it means we're not filtering on it.
-                return;
+                return false;
             }
 
             // Clear the filter!
@@ -311,6 +270,48 @@ Honey.Collection = {
             this._applyChanges(content);
             controller.view.render();
             return content;
+
+        },
+
+        /**
+         * Creates a dimension if it doesn't already exist. Can also force the creation of
+         * the new dimension by passed "true" to the third argument -- useful for when new
+         * items are added to the collection.
+         * @method _createDimension
+         * @param collection {Object}
+         * @param property {String}
+         * @param forceRecreation {Boolean}
+         * @param filterMethod {String}
+         * @return {Boolean} whether the dimension creation process was a success or not.
+         */
+        _createDimension: function(collection, property, forceRecreation, filterMethod) {
+
+            var dimension = this._dimensions[property];
+
+            if (dimension) {
+
+                if (!forceRecreation) {
+                    // If the dimension exists but we don't want to recreate it, then we can't
+                    // do anything more.
+                    return true;
+                }
+
+                // Delete the dimension so we can add it again.
+                dimension.crossfilter.remove();
+
+            }
+
+//            console.log(collection.length);
+
+            // Create the Crossfilter dimension on the property specified.
+            this._dimensions[property] = {
+                method      : filterMethod,
+                crossfilter : this._crossfilter.dimension(function(d) {
+                    return d[property];
+                })
+            };
+
+            return this._dimensions[property];
 
         },
 
