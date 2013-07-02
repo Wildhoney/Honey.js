@@ -884,6 +884,7 @@ Honey.View = {
                 }
             }
 
+            this.inDOM      = false;
             this.renderable = false;
 
         };
@@ -1063,6 +1064,29 @@ Honey.View = {
 
             // Otherwise we can render the HTML.
             node.innerHTML  = rendered;
+
+            /**
+             * @method attemptInvoke
+             * @param methodName
+             * @return {void}
+             */
+            var attemptInvoke = function attemptInvoke(methodName) {
+
+                if (typeof this[methodName] === 'function') {
+                    // Invoke the `didInsert` method on the view if it exists.
+                    this[methodName].apply(this);
+                }
+
+            };
+
+            if (!this.inDOM) {
+                this.element = node;
+                attemptInvoke.call(this, 'didInsert');
+                this.inDOM = true;
+                return;
+            }
+
+            attemptInvoke.call(this, 'didUpdate');
 
         }
 
