@@ -1,5 +1,6 @@
 Honey.js
 =============
+<img src="https://travis-ci.org/Wildhoney/Honey.js.png?branch=master" />
 
 Honey.js is a **very** small JavaScript framework that attempts to use modern browser techniques. The default templating system is Mustache, and views are updated automatically.
 

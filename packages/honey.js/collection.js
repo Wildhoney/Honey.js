@@ -194,7 +194,7 @@ Honey.Collection = {
 
             dimension.crossfilter.filterFunction(function(dimension) {
                 // Invoke the filter callback.
-                return filterMethod.call(collection, dimension);
+                return filterMethod.call(controller, dimension);
             });
 
             // Splice the new results into the collection, and finally render the view!
