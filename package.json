@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Adam Timberlake",
   "dependencies": {
-    "mustache": "~0.7.2",
+    "mustache": "~3.1.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-jasmine": "~0.5.1",
     "grunt-contrib-jshint": "~0.6.0",
